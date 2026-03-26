@@ -74,12 +74,6 @@ def editar():
     btn_salvar.config(command=salvar_edicao)
     btn_salvar.pack()
 
-# botão editar
-btn_editar = tk.Button(janela, text="Editar", command=editar)
-btn_editar.pack()
-btn_salvar = tk.Button(janela, text="Salvar edição")
-btn_salvar.pack()
-btn_salvar.pack_forget()  # começa escondido
 
 # Lista de tarefas
 lista = tk.Listbox(janela, width=60, height=15)
@@ -126,9 +120,21 @@ def remover():
     atualizar_lista()
 
 
+# Frame para os botões de ação
+frame_botoes = tk.Frame(janela)
+frame_botoes.pack(pady=5)
+
 # botão remover
-btn_remover = tk.Button(janela, text="Remover", command=remover)
-btn_remover.pack()
+btn_remover = tk.Button(frame_botoes, text="Remover", command=remover)
+btn_remover.pack(side=tk.LEFT, padx=5)
+
+# botão editar
+btn_editar = tk.Button(frame_botoes, text="Editar", command=editar)
+btn_editar.pack(side=tk.LEFT, padx=5)
+
+btn_salvar = tk.Button(frame_botoes, text="Salvar edição")
+btn_salvar.pack(side=tk.LEFT, padx=5)
+btn_salvar.pack_forget()  # começa escondido
 
 # liga o duplo clique à função
 lista.bind("<Double-Button-1>", alternar_status)
