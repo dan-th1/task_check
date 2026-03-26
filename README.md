@@ -9,7 +9,6 @@ Uma agenda automatizada e de controle simples, desenvolvida em Python. Foco em p
 - **Marcação de conclusão**: Marque com X para calcular o percentual de conclusão.
 - **Gráfico de progresso semanal**: Visual simples que mostra o progresso (linha subindo para liberar dopamina).
 - **Zero formatação**: Apenas escreva e marque X.
-- **Interface burra por design**: Parece um bloco de notas simples.
 - **Automação ao ligar o PC**: Janela abre automaticamente, salva tarefas e mostra gráfico.
 - **Atalho no desktop**: Win + T abre diretamente o app.
 - **Automação invisível**: Fórmulas e cálculos acontecem nos bastidores.
