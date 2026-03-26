@@ -3,6 +3,7 @@ from tkinter import ttk
 from datetime import datetime
 import json
 import os
+import uuid 
 
 # Arquivo onde salva as tarefas
 ARQUIVO = "tarefas.json"
@@ -13,6 +14,7 @@ def carregar_tarefas():
         with open(ARQUIVO, 'r', encoding='utf-8') as f:
             return json.load(f)
     return []
+tarefas = carregar_tarefas()
 
 # Salva tarefas
 def salvar_tarefas(tarefas):
@@ -32,11 +34,16 @@ entrada = tk.Entry(frame_entrada, width=40)
 entrada.pack(side=tk.LEFT, padx=5)
 
 def adicionar():
+    global tarefas
     texto = entrada.get().strip()
     if texto:
         data = datetime.now().strftime("%d/%m/%Y %H:%M")
-        tarefas = carregar_tarefas()
-        tarefas.append({"data": data, "texto": texto, "feito": False})
+        tarefas.append({
+            "id": str(uuid.uuid4()),
+            "data": data,
+            "texto": texto,
+            "feito": False
+        })
         salvar_tarefas(tarefas)
         entrada.delete(0, tk.END)
         atualizar_lista()
@@ -48,13 +55,13 @@ btn_add = tk.Button(frame_entrada, text="Adicionar", command=adicionar)
 btn_add.pack(side=tk.LEFT)
 
 def editar():
+    global tarefas
     selecionado = lista.curselection()
     
     if not selecionado:
         return
     
     index = selecionado[0]
-    tarefas = carregar_tarefas()
     
     # coloca o texto atual no campo de entrada
     entrada.delete(0, tk.END)
@@ -81,7 +88,6 @@ lista.pack(pady=10)
 
 def atualizar_lista():
     lista.delete(0, tk.END)
-    tarefas = carregar_tarefas()
     for i, t in enumerate(tarefas):
         if t["feito"]:
             texto = f"{t['data']} ✓ {t['texto']} (concluído)"
@@ -90,13 +96,13 @@ def atualizar_lista():
         lista.insert(tk.END, texto)
 
 def alternar_status(event):  
+    global tarefas
     # pega o item selecionado na lista (retorna uma tupla com índices)
     selecionado = lista.curselection()  
     
     if not selecionado:  
         return  
     index = selecionado[0]  
-    tarefas = carregar_tarefas()   
     # inverte o status da tarefa (False → True, True → False)
     tarefas[index]["feito"] = not tarefas[index]["feito"]  
     
@@ -104,6 +110,7 @@ def alternar_status(event):
     atualizar_lista()
 
 def remover():
+    global tarefas
     # pega o item selecionado
     selecionado = lista.curselection()
     
@@ -112,7 +119,6 @@ def remover():
         return
     
     index = selecionado[0]
-    tarefas = carregar_tarefas()
     # remove a tarefa da lista
     tarefas.pop(index)
     
