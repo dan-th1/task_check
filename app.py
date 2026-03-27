@@ -118,10 +118,13 @@ lista.pack(pady=10)
 def atualizar_lista():
     lista.delete(0, tk.END)
     for i, t in enumerate(tarefas):
+        # Pega a categoria (ou "Sem categoria" se não existir)
+        categoria = t.get("categoria", "Sem categoria")
+        
         if t["feito"]:
-            texto = f"{t['data']} ✓ {t['texto']} (concluído)"
+            texto = f"[{categoria}] {t['data']} ✓ {t['texto']} (concluído)"
         else:
-            texto = f"{t['data']} ○ {t['texto']}"
+            texto = f"[{categoria}] {t['data']} ○ {t['texto']}"
         lista.insert(tk.END, texto)
 
 def alternar_status(event):  
