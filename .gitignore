@@ -1,5 +1,6 @@
 # Dados locais
-tarefas.json
+data/tarefas.json
+data/categorias.json
 
 # Cache Python
 __pycache__/
